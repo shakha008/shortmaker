@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ShortMaker — videoni Shorts qiling</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Short<span>Maker</span></h1>
+    <p>Videoni tanlang, kerakli qismini belgilang — vertikal 9:16 Shorts oling</p>
+  </header>
+
+  <!-- Manba tanlash -->
+  <div class="tabs" role="tablist">
+    <button class="tab active" data-tab="upload" role="tab">Videoni yuklash</button>
+    <button class="tab" data-tab="url" role="tab">YouTube havolasi</button>
+  </div>
+
+  <!-- 1a. Fayl yuklash -->
+  <section id="panelUpload" class="card">
+    <label class="drop" id="drop" for="file">
+      <input type="file" id="file" accept="video/*">
+      <b>Video tanlang</b>
+      <span id="fileName">yoki shu yerga tashlang (eng ko'pi <span id="maxMb">100</span> MB)</span>
+    </label>
+    <video id="preview" class="preview-video hidden" controls playsinline preload="metadata"></video>
+    <div id="errUpload" class="error hidden"></div>
+  </section>
+
+  <!-- 1b. YouTube havolasi -->
+  <section id="panelUrl" class="card hidden">
+    <label for="url">YouTube havolasi</label>
+    <div class="row">
+      <input type="text" id="url" placeholder="https://www.youtube.com/watch?v=..." autocomplete="off">
+      <button id="btnInfo">Tekshirish</button>
+    </div>
+    <div class="hint">Eslatma: ba'zi serverlarda YouTube yuklashni bloklaydi. Ishlamasa, videoni o'zingiz yuklang.</div>
+    <div id="errInfo" class="error hidden"></div>
+    <div id="videoInfo" class="video-info hidden">
+      <img id="thumb" alt="">
+      <div>
+        <h2 id="title"></h2>
+        <small id="durTotal"></small>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Sozlamalar -->
+  <section id="settings" class="hidden">
+    <div class="card">
+      <label>Qaysi qismi kerak?</label>
+      <div class="times">
+        <div>
+          <label for="startT">Boshlanish (daq:son)</label>
+          <input type="text" id="startT" value="0:00" inputmode="numeric">
+        </div>
+        <div>
+          <label for="endT">Tugash (daq:son)</label>
+          <input type="text" id="endT" value="0:30" inputmode="numeric">
+        </div>
+      </div>
+      <div class="range-box">
+        <input type="range" id="startR" min="0" max="100" step="1" value="0">
+        <input type="range" id="endR" min="0" max="100" step="1" value="30">
+      </div>
+      <div class="pick upload-only">
+        <button type="button" class="small secondary" id="setStart">Boshlanish = hozirgi joy</button>
+        <button type="button" class="small secondary" id="setEnd">Tugash = hozirgi joy</button>
+      </div>
+      <div class="hint">Tanlangan davomiylik: <span id="chosen" class="dur">30 s</span> (eng ko'pi <span id="maxS">60</span> s)</div>
+    </div>
+
+    <div class="card">
+      <label>Formatga o'tkazish usuli</label>
+      <div class="modes">
+        <label class="mode blur active">
+          <input type="radio" name="mode" value="blur" checked>
+          <div class="preview"></div>
+          <b>Xira fon</b><small>Butun kadr saqlanadi</small>
+        </label>
+        <label class="mode crop">
+          <input type="radio" name="mode" value="crop">
+          <div class="preview"></div>
+          <b>Markazdan kesish</b><small>Butun ekranni to'ldiradi</small>
+        </label>
+      </div>
+    </div>
+
+    <button id="btnMake" class="wide">Shorts yaratish</button>
+    <div id="errMake" class="error hidden"></div>
+  </section>
+
+  <!-- 3. Jarayon -->
+  <section id="progressCard" class="card hidden">
+    <b id="pmsg">Boshlanmoqda...</b>
+    <div class="progress"><div id="pbar"></div></div>
+    <small class="muted">Sahifani yopmang. Davomiyligiga qarab bir necha daqiqa ketishi mumkin.</small>
+  </section>
+
+  <!-- 4. Natija -->
+  <section id="resultCard" class="card result hidden">
+    <video id="player" controls playsinline></video>
+    <a id="dl" class="btn" href="#" download>MP4 yuklab olish</a>
+    <div class="again"><button id="btnAgain" class="secondary">Yana yaratish</button></div>
+  </section>
+
+  <footer>Faqat o'zingizga tegishli yoki ruxsat berilgan videolar uchun foydalaning.</footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
