@@ -112,10 +112,15 @@ def run_job(job_id: str, url: str, start: float, end: float, mode: str) -> None:
             raw.unlink(missing_ok=True)
             update(job_id, status="done", progress=100,
                    message="Tayyor!", file=str(out))
-        except DownloadError:
-            update(job_id, status="error",
-                   message="Videoni yuklab bo'lmadi. U yopiq, yosh cheklovli yoki "
-                           "hududingizda mavjud bo'lmasligi mumkin.")
+        except DownloadError as exc:
+            msg = str(exc)
+            print("DOWNLOAD ERROR:", msg, flush=True)
+            if "Sign in" in msg or "bot" in msg:
+                text = "YouTube bu serverni bloklayapti (bot tekshiruvi)."
+            else:
+                text = ("Videoni yuklab bo'lmadi. U yopiq, yosh cheklovli yoki "
+                        "hududingizda mavjud bo'lmasligi mumkin.")
+            update(job_id, status="error", message=text)
         except Exception as exc:  # noqa: BLE001
             update(job_id, status="error", message=f"Xatolik: {exc}")
 
@@ -147,7 +152,11 @@ def api_info():
     try:
         with yt_dlp.YoutubeDL(base_opts()) as ydl:
             info = ydl.extract_info(url, download=False)
-    except DownloadError:
+    except DownloadError as exc:
+        msg = str(exc)
+        print("INFO ERROR:", msg, flush=True)
+        if "Sign in" in msg or "bot" in msg:
+            return jsonify(error="YouTube bu serverni bloklayapti (bot tekshiruvi)."), 400
         return jsonify(error="Video topilmadi yoki unga kirib bo'lmaydi."), 400
 
     if info.get("is_live"):
