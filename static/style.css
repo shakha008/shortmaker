@@ -1,0 +1,105 @@
+:root {
+  --bg: #0f1115;
+  --card: #181b22;
+  --line: #272b35;
+  --text: #eef0f4;
+  --muted: #9097a5;
+  --accent: #ff4757;
+  --accent-2: #ff7a45;
+  --ok: #2ecc71;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+.wrap { max-width: 720px; margin: 0 auto; padding: 32px 16px 64px; }
+header { text-align: center; margin-bottom: 28px; }
+header h1 { font-size: 2rem; margin: 0 0 6px; }
+header h1 span {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+header p { margin: 0; color: var(--muted); }
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 6px; }
+.row { display: flex; gap: 10px; }
+input[type=text] {
+  flex: 1; min-width: 0;
+  background: var(--bg); color: var(--text);
+  border: 1px solid var(--line); border-radius: 10px;
+  padding: 12px 14px; font-size: 1rem;
+}
+input[type=text]:focus { outline: 2px solid var(--accent); border-color: transparent; }
+button {
+  border: 0; border-radius: 10px; cursor: pointer;
+  padding: 12px 18px; font-size: 1rem; font-weight: 600; color: #fff;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+button:disabled { opacity: .5; cursor: not-allowed; }
+button.secondary { background: var(--line); }
+.hidden { display: none !important; }
+.error {
+  color: #ff8a93; background: rgba(255,71,87,.1);
+  border: 1px solid rgba(255,71,87,.35);
+  border-radius: 10px; padding: 10px 12px; margin-top: 12px; font-size: .92rem;
+}
+.video-info { display: flex; gap: 14px; align-items: center; }
+.video-info img { width: 120px; border-radius: 8px; flex-shrink: 0; }
+.video-info h2 { font-size: 1rem; margin: 0 0 4px; line-height: 1.3; }
+.video-info small { color: var(--muted); }
+.times { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+.times input { width: 100%; text-align: center; font-variant-numeric: tabular-nums; }
+.range-box { margin-top: 14px; }
+input[type=range] { width: 100%; accent-color: var(--accent); }
+.hint { color: var(--muted); font-size: .85rem; margin-top: 8px; }
+.dur { font-weight: 700; }
+.dur.bad { color: #ff8a93; }
+.modes { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
+.mode {
+  border: 2px solid var(--line); border-radius: 12px; padding: 12px;
+  cursor: pointer; text-align: center; background: var(--bg);
+}
+.mode input { display: none; }
+.mode.active { border-color: var(--accent); }
+.mode .preview {
+  width: 54px; height: 96px; margin: 0 auto 8px; border-radius: 6px;
+  background: #222; position: relative; overflow: hidden;
+}
+.mode .preview::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 34%; height: 32%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+.mode.blur .preview { background: linear-gradient(180deg, #5b3b6e, #2a3a6e); }
+.mode.crop .preview::after { top: 0; height: 100%; }
+.mode b { display: block; font-size: .95rem; }
+.mode small { color: var(--muted); }
+.progress { height: 10px; background: var(--bg); border-radius: 99px; overflow: hidden; margin: 14px 0 8px; }
+.progress > div {
+  height: 100%; width: 0; transition: width .4s;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+.result { text-align: center; }
+.result video {
+  width: 100%; max-width: 270px; aspect-ratio: 9/16; background: #000;
+  border-radius: 14px; margin: 0 auto 16px; display: block;
+}
+.result a.btn {
+  display: inline-block; text-decoration: none; color: #fff; font-weight: 600;
+  padding: 12px 22px; border-radius: 10px; background: var(--ok);
+}
+footer { text-align: center; color: var(--muted); font-size: .8rem; margin-top: 28px; }
+@media (max-width: 480px) {
+  .video-info { flex-direction: column; align-items: flex-start; }
+  .video-info img { width: 100%; }
+  .row { flex-direction: column; }
+}

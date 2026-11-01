@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ShortMaker — YouTube videoni Shorts qiling</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Short<span>Maker</span></h1>
+    <p>YouTube havolasini tashlang — vertikal 9:16 Shorts oling</p>
+  </header>
+
+  <section class="card">
+    <label for="url">YouTube havolasi</label>
+    <div class="row">
+      <input type="text" id="url" placeholder="https://www.youtube.com/watch?v=..." autocomplete="off">
+      <button id="btnInfo">Tekshirish</button>
+    </div>
+    <div id="errInfo" class="error hidden"></div>
+  </section>
+
+  <section id="settings" class="hidden">
+    <div class="card">
+      <div class="video-info">
+        <img id="thumb" alt="">
+        <div>
+          <h2 id="title"></h2>
+          <small id="durTotal"></small>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <label>Qaysi qismi kerak?</label>
+      <div class="times">
+        <div>
+          <label for="startT">Boshlanish (daq:son)</label>
+          <input type="text" id="startT" value="0:00">
+        </div>
+        <div>
+          <label for="endT">Tugash (daq:son)</label>
+          <input type="text" id="endT" value="0:30">
+        </div>
+      </div>
+      <div class="range-box">
+        <input type="range" id="startR" min="0" max="100" step="1" value="0">
+        <input type="range" id="endR" min="0" max="100" step="1" value="30">
+      </div>
+      <div class="hint">Tanlangan davomiylik: <span id="chosen" class="dur">30 s</span> (eng ko'pi <span id="maxS">60</span> s)</div>
+    </div>
+
+    <div class="card">
+      <label>Formatga o'tkazish usuli</label>
+      <div class="modes">
+        <label class="mode blur active">
+          <input type="radio" name="mode" value="blur" checked>
+          <div class="preview"></div>
+          <b>Xira fon</b><small>Butun kadr saqlanadi</small>
+        </label>
+        <label class="mode crop">
+          <input type="radio" name="mode" value="crop">
+          <div class="preview"></div>
+          <b>Markazdan kesish</b><small>Butun ekranni to'ldiradi</small>
+        </label>
+      </div>
+    </div>
+
+    <button id="btnMake" style="width:100%">Shorts yaratish</button>
+    <div id="errMake" class="error hidden"></div>
+  </section>
+
+  <section id="progressCard" class="card hidden">
+    <b id="pmsg">Boshlanmoqda...</b>
+    <div class="progress"><div id="pbar"></div></div>
+    <small style="color:var(--muted)">Davomiyligiga qarab bir necha daqiqa ketishi mumkin.</small>
+  </section>
+
+  <section id="resultCard" class="card result hidden">
+    <video id="player" controls playsinline></video>
+    <a id="dl" class="btn" href="#" download>MP4 yuklab olish</a>
+    <div style="margin-top:12px"><button id="btnAgain" class="secondary">Yana yaratish</button></div>
+  </section>
+
+  <footer>Faqat o'zingizga tegishli yoki ruxsat berilgan videolar uchun foydalaning.</footer>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
